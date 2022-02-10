@@ -15,7 +15,7 @@ class HelperProduct
                         <td>'.$product->menu->name.'</td>
                         <td>'.$product->price.'</td>
                         <td>'.$product->price_sale.'</td>
-                        <td>'.$product->thumb.'</td>
+                        <td><a href="'.$product->thumb.'" target="_blank"><img src="'.$product->thumb.'" width="40px"></a></td>
                         <td>'.self::active($product->active).'</td>
                         <td>'.$product->updated_at.'</td>
                         <td>
