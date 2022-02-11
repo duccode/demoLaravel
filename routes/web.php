@@ -8,6 +8,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Admin\UploadController;
 use App\Http\Controllers\Admin\MainController;
 use App\Http\Controllers\Admin\SliderController;
+use App\Http\Controllers\CategoryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -70,3 +71,5 @@ Route::middleware(['auth'])->group(function (){
 
 
 Route::get('homes',[HomeController::class,'index']);
+Route::post('/services/load-product',[HomeController::class,'loadProduct']);
+Route::get('danh-muc/{id}-{slug}.html',[CategoryController::class,'index']);

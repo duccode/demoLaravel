@@ -12,11 +12,24 @@ class MenuService
         return Menu::where('parent_id',0)->get();
     }
 
+    public function show() {
+        return Menu::select('name','id')
+            ->where('parent_id',0)
+            ->orderBy('id','ASC')
+            ->get();
+    }
+
     public function getAll(){
 
         return Menu::orderBy('id','ASC')->paginate(10);
     }
 
+    public function getId($id){
+
+      return Menu::where('id',$id)
+          ->where('active',1)
+          ->firstOrFail();
+    }
 
 
     public function create($request){
@@ -59,5 +72,12 @@ class MenuService
             return Menu::where('id',$id)->orWhere('parent_id',$id)->delete();
         }
         return  false;
+    }
+
+    public function getProductOne($menu){
+        return $menu->products()->select('id','name','price','price_sale','thumb')
+                    ->where('active',1)
+                    ->orderBy('id','ASC')
+                    ->paginate(15);
     }
 }

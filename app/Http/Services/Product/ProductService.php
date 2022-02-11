@@ -9,6 +9,7 @@ use mysql_xdevapi\Exception;
 
 class ProductService
 {
+        const LIMIT = 16;
     public function getMenu(){
         return Menu::where('active',1)->get();
     }
@@ -68,6 +69,17 @@ class ProductService
     public function getProduct(){
         return Product::with('menu')
             ->orderBy('id','ASC')->paginate(10);
+    }
+
+    public function getProductNew($page = null){
+        return Product::select('id','name','price','price_sale','thumb')
+            ->orderByDesc('id')
+            ->when($page!=null,function ($query) use ($page){
+                $query->offset($page * self::LIMIT);
+            })
+            ->offset(10)
+            ->limit(self::LIMIT)
+            ->get();
     }
 
     public function delete($request){

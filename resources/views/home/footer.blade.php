@@ -406,4 +406,5 @@
 </script>
 <!--===============================================================================================-->
 <script src="/templates/js/main.js"></script>
+<script src="/templates/js/public.js"></script>
 

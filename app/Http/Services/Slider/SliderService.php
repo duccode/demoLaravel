@@ -6,6 +6,7 @@ use App\Models\Slider;
 use http\Env\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 
 class SliderService
 {
@@ -45,9 +46,15 @@ class SliderService
     public function delete($request){
         $slider = Slider::where('id',$request->input('id'))->first();
         if($slider){
+            $path =str_replace('storage','public',$slider->thumb);
+            Storage::delete($path);
             $slider->delete();
             return true;
         }
         return false;
+    }
+
+    public function show() {
+        return Slider::where('active',1)->orderBy('sort_by','ASC')->get();
     }
 }
